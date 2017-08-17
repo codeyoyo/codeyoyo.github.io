@@ -14,6 +14,12 @@ html,
     top: 0;
 }
 
+html,
+.main,
+.etc {
+    overflow: hidden;
+}
+
 .main {
     background: url('../img/timg.jpg') no-repeat;
     background-position: center;
