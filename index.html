@@ -5,11 +5,12 @@
     <title></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="css/blog.css" rel="stylesheet">
+    <link href="css/blog.css" rel="stylesheet" />
+    <link href="css/animate.css" rel='stylesheet' />
 </head>
 
 <body>
-    <div class="box">
+    <div id='box' class="box">
         <div class="title">
         </div>
         <div class="name">
@@ -32,3 +33,9 @@
 </body>
 
 </html>
+<script type="text/javascript" src="script/jquery.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $('#box').addClass('swing animated');
+    });
+</script>
