@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>排班计算器</title>
+    <style type="text/css">
+        *,
+        body {
+            text-align: center;
+        }
+
+        #workSelect,
+        #workDate,
+        #btnMath {
+            width: 100%;
+            height: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h1>叶世铭排班计算器</h1>
+    </div>
+    <div>
+        <p>今天上的班：</p>
+        <div>
+            <select id="workSelect"></select>
+        </div>
+        <p>要计算的日期</p>
+        <div>
+            <input id="workDate" type="date" />
+        </div>
+        <div style="margin-top: 20px;">
+            <button type="button" id="btnMath">计算</button>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    var datedifference = function (sDate1, sDate2) {
+        var dateSpan,
+            tempDate,
+            iDays;
+        sDate1 = Date.parse(sDate1);
+        sDate2 = Date.parse(sDate2);
+        dateSpan = sDate2 - sDate1;
+        dateSpan = Math.abs(dateSpan);
+        iDays = Math.floor(dateSpan / (24 * 3600 * 1000));
+        return iDays
+    };
+
+    window.onload = function () {
+
+        var workSelectList = [
+            {
+                text: "早晚班",
+                value: 0,
+            },
+            {
+                text: "早班",
+                value: 1,
+            },
+            {
+                text: "晚班",
+                value: 2,
+            }
+        ];
+
+        var workSelect = document.getElementById('workSelect');
+        var options = "";
+        for (var i = 0; i < workSelectList.length; i++) {
+            var item = workSelectList[i];
+            options += "<option value='" + item.value + "'>" + item.text + "</option>";
+        }
+        workSelect.innerHTML = options;
+
+        document.getElementById("btnMath").onclick = function () {
+            var now = new Date();
+            var selectDate = document.getElementById("workDate").value;
+            if (selectDate == '') {
+                alert("请选择计算日期");
+            } else {
+                var iDays = datedifference(now, selectDate) + 1;
+                var workSelectVal = parseInt(document.getElementById("workSelect").value);
+                for (var i = 0; i < iDays; i++) {
+                    if (workSelectVal + 1 == workSelectList.length) {
+                        workSelectVal = 0;
+                    } else {
+                        workSelectVal++;
+                    }
+                }
+                for (var i = 0; i < workSelectList.length; i++) {
+                    var item = workSelectList[i];
+                    if (item.value == workSelectVal) {
+                        alert(selectDate + "上" + item.text);
+                        break;
+                    }
+                }
+            }
+        }
+
+    }
+</script>
+
+</html>
