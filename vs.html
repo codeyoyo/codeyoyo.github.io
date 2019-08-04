@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>石头剪刀布</title>
+    <style type="text/css">
+        *,
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        h1 {
+            text-align: center
+        }
+
+        .vs-box {
+            margin: 0 auto;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .vs-ul {
+            display: block;
+            list-style: none;
+            height: 100%;
+        }
+
+        .vs-ul li {
+            width: 33%;
+            display: inline-block;
+            text-align: center;
+            position: relative;
+            background-color: yellow;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .vs-ul span {
+            display: block;
+            position: absolute;
+            width: 100%;
+            top: 40%;
+            font-size: 30px;
+            z-index: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>石头剪刀布</h1>
+    <div class="vs-box">
+        <ul class="vs-ul">
+            <li>
+                <span>XXX</span>
+            </li>
+            <li>
+                <span>XXX</span>
+            </li>
+            <li>
+                <span>XXX</span>
+            </li>
+        </ul>
+    </div>
+</body>
+<script type="text/javascript">
+    window.onload = function () {
+
+        var data = [
+            "石头",
+            "剪刀",
+            "布"
+        ];
+
+        function random(lower, upper) {
+            return Math.floor(Math.random() * (upper - lower + 1)) + lower;
+        }
+
+        function judge(o, t) {
+            if (o == data[0] && t == data[1]) {
+                alert(o + '胜');
+            }
+            if (o == data[0] && t == data[2]) {
+                alert(t + '胜');
+            }
+
+            if (o == data[1] && t == data[0]) {
+                alert(t + '胜');
+            }
+            if (o == data[1] && t == data[2]) {
+                alert(o + '胜');
+            }
+
+            if (o == data[2] && t == data[0]) {
+                alert(o + '胜');
+            }
+            if (o == data[2] && t == data[1]) {
+                alert(t + '胜');
+            }
+
+            if (t === o) {
+                alert('平手');
+            }
+        }
+
+        var spanList = document.querySelectorAll('span');
+        var clickNum = 0;
+        var one = '';
+        var two = '';
+
+        function reset() {
+            var sList = document.querySelectorAll('span');
+            for (var i = 0; i < sList.length; i++) {
+                var item = sList[i];
+                item.innerHTML = "xxx";
+            }
+            one = '';
+            two = '';
+            clickNum = 0;
+        }
+
+        for (var i = 0; i < spanList.length; i++) {
+            var item = spanList[i];
+            item.onclick = function (e) {
+                var el = e.toElement;
+                var num = random(0, data.length - 1);
+                var val = data[num];
+                el.innerHTML = val;
+                if (one == '') {
+                    one = val;
+                }
+                else if (two == '') {
+                    two = val;
+                }
+                clickNum++;
+                if (clickNum == 2) {
+                    setTimeout(function () {
+                        judge(one, two);
+                        reset();
+                    }, 200);
+                }
+            }
+        }
+    }
+</script>
+
+</html>
